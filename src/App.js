@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Point } from "./renders/Point.js";
 import { Triangle } from "./renders/Triangle.js";
 import './reset.css';
 
 const renders = [
-  Triangle
+  Triangle,
+  Point
 ];
 
 function App() {
-  const [render, setRender] = useState(null);
+  const [render, setRender] = useState(1);
   useEffect(() => {
     if (render === null) return;
     const canvas = document.getElementById('canvas');
@@ -22,7 +24,7 @@ function App() {
       <Navbar>
         {renders.map((render, id) => <li onClick={() => setRender(id)} key={id}>{render.name}</li>)}
       </Navbar>
-      <Screen id="canvas" width="1200" height="1200">
+      <Screen id="canvas" width="500" height="500">
       </Screen>
 
     </Container>
@@ -59,8 +61,8 @@ const Navbar = styled.ul`
 `;
 
 const Screen = styled.canvas`
-  width: 100%;
-  height: 100%;
+  // width: 100%;
+  // height: 100%;
 `;
 
 export default App;
