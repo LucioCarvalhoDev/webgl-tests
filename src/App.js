@@ -1,23 +1,28 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Triangle } from "./renders/Triangle.js";
 import './reset.css';
 
-const pages = [];
+const renders = [
+  Triangle
+];
 
 function App() {
-
-  function alert(text) {
-    alert(text);
-  }
+  const [render, setRender] = useState(null);
+  useEffect(() => {
+    if (render === null) return;
+    const canvas = document.getElementById('canvas');
+    /** @type {WebGL2RenderingContext} */
+    const gl = canvas.getContext('webgl');
+    renders[render](gl);
+  });
 
   return (
     <Container className="App">
-      <div>
-
-      </div>
-      <Screen>
-
-
-
+      <Navbar>
+        {renders.map((render, id) => <li onClick={() => setRender(id)} key={id}>{render.name}</li>)}
+      </Navbar>
+      <Screen id="canvas" width="1200" height="1200">
       </Screen>
 
     </Container>
@@ -28,13 +33,32 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 100px 1fr;
   grid-template-rows: 1fr;
   gap: 5px;
 `;
 
+const Navbar = styled.ul`
+  background: #40085e;
+  color: #fdfdfd;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  & > li {
+    margin: 5px;
+    padding: 5px;
+    background: #6f0da3;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  & > li:hover {
+    cursor: pointer
+  }
+`;
+
 const Screen = styled.canvas`
-  background: grey;
   width: 100%;
   height: 100%;
 `;

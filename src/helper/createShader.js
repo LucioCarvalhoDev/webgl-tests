@@ -4,7 +4,7 @@
  * @param {*} type 
  * @param {*} source 
  */
-export default function shaderGenerator(gl, type, source) {
+export default function createShader(gl, type, source) {
     var shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
